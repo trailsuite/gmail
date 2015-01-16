@@ -1,31 +1,14 @@
-# GMail for Ruby
+# Gmail for Ruby
 
-A Rubyesque interface to Google's GMail, with all the tools you'll need. Search, 
+[![Build Status](https://travis-ci.org/nu7hatch/gmail.png)](https://travis-ci.org/nu7hatch/gmail)
+[![Code Climate](https://codeclimate.com/github/nu7hatch/gmail.png)](https://codeclimate.com/github/nu7hatch/gmail)
+
+A Rubyesque interface to Google's Gmail, with all the tools you'll need. Search, 
 read and send multipart emails, archive, mark as read/unread, delete emails, 
 and manage labels.
 
-It's based on Daniel Parker's ruby-gmail gem. This version has more friendy
-API, is well tested, better documented and have many other improvements.  
-
-## Author(s)
-
-* Kriss 'nu7hatch' Kowalik
-* [Daniel Parker of BehindLogic.com](http://github.com/dcparker)
-
-Extra thanks for specific feature contributions from:
-
-* [abhishiv](http://github.com/abhishiv)
-* [Michael Young](http://github.com/myoung8)
-* [Nicolas Fouché](http://github.com/nfo)
-* [Stefano Bernardi](http://github.com/stefanobernardi)
-* [Benjamin Bock](http://github.com/bb)
-* [Arthur Chiu](http://github.com/achiu)
-* [Justin Perkins](http://github.com/justinperkins)
-* [Mikkel Malmberg](http://github.com/mikker)
-* [Julien Blanchard](http://github.com/julienXX)
-* [Federico Galassi](http://github.com/fgalassi)
-* [Alex Genco](http://github.com/alexgenco)
-* [Justin Grevich](http://github.com/jgrevich)
+It's based on Daniel Parker's ruby-gmail gem. This version has more friendly
+API, is well tested, better documented and have many other improvements.
 
 ## Installation
 
@@ -65,7 +48,7 @@ First of all require the `gmail` library.
     
 ### Authenticating gmail sessions
 
-This will you automatically log in to your account. 
+This will let you automatically log in to your account. 
 
     gmail = Gmail.connect(username, password)
     # play with your gmail...
@@ -134,6 +117,10 @@ conversation/thread will come as a separate message.
 
     gmail.inbox.emails(:unread, :before => Date.parse("2010-04-20"), :from => "myboss@gmail.com")
 
+The [gm option](https://developers.google.com/gmail/imap_extensions?csw=1#extension_of_the_search_command_x-gm-raw) enables use of the Gmail search syntax.
+
+    gmail.inbox.emails(gm: '"testing"')
+
 You can use also one of aliases:
 
     gmail.inbox.find(...)
@@ -161,12 +148,12 @@ Delete emails from X:
       email.delete!
     end
 
-Save all attachments in the "Faxes" label to a local folder:
+Save all attachments in the "Faxes" label to a local folder (uses functionality from `Mail` gem):
 
-    folder = "/where/ever"
+    folder = Dir.pwd # for example
     gmail.mailbox("Faxes").emails.each do |email|
-      if !email.message.attachments.empty?
-        email.message.save_attachments_to(folder)
+      email.message.attachments.each do |f|
+        File.write(File.join(folder, f.filename), f.body.decoded)
       end
     end
      
@@ -222,6 +209,12 @@ Or check if given label exists:
     gmail.labels.exists?("Urgent") # => false
     gmail.labels.exists?("AnotherOne") # => true
 
+Localize label names using the LIST special-use extension flags,
+:Inbox, :All, :Drafts, :Sent, :Trash, :Important, :Junk, and :Flagged
+
+    gmail.labels.localize(:all) # => "[Gmail]\All Mail"
+                                # => "[Google Mail]\All Mail"
+
 ### Composing and sending emails
 
 Creating emails now uses the amazing [Mail](http://rubygems.org/gems/mail) rubygem. 
@@ -252,6 +245,13 @@ Or, compose the message first and send it later
     end
     email.deliver! # or: gmail.deliver(email)
 
+## Troubleshooting
+
+If you are having trouble connecting to Gmail:
+* Please ensure your account is verified
+* In [Gmail Security Settings](https://www.google.com/settings/security), enable access for less secure applications.
+* Read [this support answer re: suspicious activity](https://support.google.com/mail/answer/78754) and try things like entering a captcha.
+
 ## Note on Patches/Pull Requests
  
 * Fork the project.
@@ -261,6 +261,27 @@ Or, compose the message first and send it later
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
+
+## Author(s)
+
+* Kriss 'nu7hatch' Kowalik
+* [Daniel Parker of BehindLogic.com](http://github.com/dcparker)
+
+Extra thanks for specific feature contributions from:
+
+* [abhishiv](http://github.com/abhishiv)
+* [Michael Young](http://github.com/myoung8)
+* [Nicolas Fouché](http://github.com/nfo)
+* [Stefano Bernardi](http://github.com/stefanobernardi)
+* [Benjamin Bock](http://github.com/bb)
+* [Arthur Chiu](http://github.com/achiu)
+* [Justin Perkins](http://github.com/justinperkins)
+* [Mikkel Malmberg](http://github.com/mikker)
+* [Julien Blanchard](http://github.com/julienXX)
+* [Federico Galassi](http://github.com/fgalassi)
+* [Alex Genco](http://github.com/alexgenco)
+* [Justin Grevich](http://github.com/jgrevich)
+* [Johnny Shields](http://github.com/johnnyshields)
 
 ## Copyright
 

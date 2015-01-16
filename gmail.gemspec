@@ -17,14 +17,12 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/nu7hatch/gmail"
   
   # runtime dependencies
-  s.add_dependency "mime", ">= 0.1"
   s.add_dependency "mail", ">= 2.2.1"
   s.add_dependency "gmail_xoauth", ">= 0.3.0"
   
   # development dependencies
   s.add_development_dependency "rake"
-  s.add_development_dependency "rspec", "~> 2.0"
-  s.add_development_dependency "mocha", ">= 0.9"
+  s.add_development_dependency "rspec", ">= 3.1"
   s.add_development_dependency "gem-release"
   
   s.files         = `git ls-files`.split("\n")
