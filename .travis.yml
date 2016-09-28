@@ -9,5 +9,5 @@ matrix:
      - rvm: jruby
 
 before_script:
-   - printf '- $GMAIL_USER\n- $GMAIL_PASSWORD\n' > spec/account.yml
+   - printf '%s%s\n%s%s\n' '- ' $GMAIL_USER '- ' $GMAIL_PASSWORD > spec/account.yml
    - cat spec/account.yml
