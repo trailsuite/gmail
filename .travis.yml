@@ -1,12 +1,12 @@
+language: ruby
+
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.5
-  - 2.2.0
-  - rbx
-  - jruby
+   - 2.1.3
 
 matrix:
-  allow_failures:
-    - rvm: rbx
-    - rvm: jruby
+   allow_failures:
+     - rvm: rbx
+     - rvm: jruby
+
+before_script:
+   - printf '%s%s\n%s%s\n' '- ' $GMAIL_USER '- ' $GMAIL_PASSWORD > spec/account.yml

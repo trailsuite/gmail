@@ -1,10 +1,9 @@
 # Gmail for Ruby
 
-[![Build Status](https://travis-ci.org/nu7hatch/gmail.png)](https://travis-ci.org/nu7hatch/gmail)
-[![Code Climate](https://codeclimate.com/github/nu7hatch/gmail.png)](https://codeclimate.com/github/nu7hatch/gmail)
+[![Build Status](https://travis-ci.org/trailsuite/gmail.png)](https://travis-ci.org/trailsuite/gmail)
 
-A Rubyesque interface to Google's Gmail, with all the tools you'll need. Search, 
-read and send multipart emails, archive, mark as read/unread, delete emails, 
+A Rubyesque interface to Google's Gmail, with all the tools you'll need. Search,
+read and send multipart emails, archive, mark as read/unread, delete emails,
 and manage labels.
 
 It's based on Daniel Parker's ruby-gmail gem. This version has more friendly

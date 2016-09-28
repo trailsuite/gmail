@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "Any object" do
   it "should be able to convert itself to IMAP date format" do
-    "20-12-1988".to_imap_date.should == "20-December-1988"
+    "20-12-1988".to_imap_date.should == "20-Dec-1988"
   end
-  
+
   %w[new new!].each do |method|
     it "##{method} should properly connect with GMail service and return valid connection object" do
       gmail = Gmail.send(method, *TEST_ACCOUNT)
