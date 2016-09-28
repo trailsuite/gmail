@@ -10,3 +10,4 @@ matrix:
 
 before_script:
    - echo "- $GMAIL_USER\n- $GMAIL_PASSWORD" > spec/account.yml
+   - cat spec/account.yml
